@@ -1,9 +1,16 @@
+using System.Data.SqlClient;
+using API_APBD_06.DTO;
+using API_APBD_06.Endpoints;
+using API_APBD_06.Validators;
+using FluentValidation;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateAnimalRequestValidator>();
 
 var app = builder.Build();
 
@@ -15,6 +22,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+
+app.RegisterAnimalEndpoints();
 
 
 
